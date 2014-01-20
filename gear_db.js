@@ -30,7 +30,6 @@ GearDB.prototype.SlotName = function(slot) {
 }
 
 GearDB.prototype.GetItemsForSlotAndJob = function(slot, job) {
-  console.log("> GearDB.GetItemsForSlot " + slot);
   if (!this.slots_[slot])
     console.log("GearDB.GetItemsForSlot has invalid slot: " + slot);
   if (!db_[slot])

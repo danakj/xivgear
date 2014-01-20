@@ -2,74 +2,79 @@ function GearView(gear_db) {
   this.gear_db = gear_db;
 }
 
-GearView.prototype.GenerateItems = function(slot, job) {
+GearView.prototype.GenerateItems = function(elem, slot, job) {
   items = gear_db.GetItemsForSlotAndJob(slot, job);
-
-  var out = "";
   if (!items)
-    return out;
+    return;
 
-  out += "<tr>\n";
-  out += "<th class='slot name'>" + gear_db.SlotName(slot) + "</th>";
-  out += "</tr>\n";
+  var category = "";
+  category += "<tr>\n";
+  category += "<th/>\n"
+  category += "<th class='slot name'>" + gear_db.SlotName(slot) + "</th>";
+  category += "</tr>\n";
+  elem.append(category);
 
   for (var i in items) {
-    out += "<tr>\n";
+    var row = "<tr>\n";
 
     var item = items[i];
-    console.log(item);
     var even_odd = i % 2 == 0 ? "even" : "odd";
-    out += "<td class='item name " + even_odd + "'>" + item.name + " (" + item.ilevel + ")</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.dmg) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.str) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.dex) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.vit) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.int) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.mnd) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.pie) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.acc) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.crit) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.det) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.spsp) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.sksp) + "</td>";
+    row += "<td class='own'><input type='checkbox' value='" + escape(item.name) + "'/></td>\n"
+    row += "<td class='item name " + even_odd + "'>" + item.name + "</td>";
+    row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.dmg) + "</td>";
+    row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.str) + "</td>";
+    row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.dex) + "</td>";
+    row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.vit) + "</td>";
+    row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.int) + "</td>";
+    row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.mnd) + "</td>";
+    row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.pie) + "</td>";
+    row += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.acc) + "</td>";
+    row += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.crit) + "</td>";
+    row += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.det) + "</td>";
+    row += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.spsp) + "</td>";
+    row += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.sksp) + "</td>";
 
-    out += "</tr>\n";
+    row += "</tr>\n";
+    elem.append(row);
+
+    var es = elem.find("td.item.name");
+    var item_elem = es[es.length - 1];
+    item_elem.addEventListener('click', curry(OnItemNameClicked, item_elem, item.name));
   }
-  return out;
 }
 
-GearView.prototype.PopulateItemsFromDB = function(job) {
-  console.log("> PopulateItemsFromDB");
+GearView.prototype.PopulateItemsFromDB = function(etable, job) {
+  console.log("> GearView.PopulateItemsFromDB");
   if (!gear_db) {
     console.log("Empty database, resetting.");
     gear_db.ResetToDefaults();
     gear_db.Save();
   }
 
-  var etable = ElementFromId("geartable");
+  etable.html("<table cellspacing='0'>\n");
 
-  var out = "<table cellspacing='0'>\n";
-
-  out += "<tr>\n";
-  out += "<th></th>";
-  out += "<th class='primary stat'>DMG</th>";
-  out += "<th class='primary stat'>STR</th>"; 
-  out += "<th class='primary stat'>DEX</th>";
-  out += "<th class='primary stat'>VIT</th>";
-  out += "<th class='primary stat'>INT</th>";
-  out += "<th class='primary stat'>MND</th>";
-  out += "<th class='primary stat'>PIE</th>";
-  out += "<th class='secondary stat'>ACC</th>";
-  out += "<th class='secondary stat'>CRIT</th>";
-  out += "<th class='secondary stat'>DET</th>";
-  out += "<th class='secondary stat'>SPSD</th>";
-  out += "<th class='secondary stat'>SKSD</th>";
-  out += "</tr>";
+  var header = "";
+  header += "<tr>\n";
+  header += "<th>Own</th>";
+  header += "<th></th>";
+  header += "<th class='primary stat'>DMG</th>";
+  header += "<th class='primary stat'>STR</th>"; 
+  header += "<th class='primary stat'>DEX</th>";
+  header += "<th class='primary stat'>VIT</th>";
+  header += "<th class='primary stat'>INT</th>";
+  header += "<th class='primary stat'>MND</th>";
+  header += "<th class='primary stat'>PIE</th>";
+  header += "<th class='secondary stat'>ACC</th>";
+  header += "<th class='secondary stat'>CRIT</th>";
+  header += "<th class='secondary stat'>DET</th>";
+  header += "<th class='secondary stat'>SPSD</th>";
+  header += "<th class='secondary stat'>SKSD</th>";
+  header += "</tr>";
+  etable.append(header);
 
   var slots = gear_db.AllSlots();
   for (var i in slots)
-    out += this.GenerateItems(slots[i], job);
-  etable.innerHTML = out;
+    this.GenerateItems(etable, slots[i], job);
 }
 
 GearView.prototype.ResetGearDB = function() {

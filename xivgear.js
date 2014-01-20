@@ -8,7 +8,7 @@ function OnPageLoad() {
   stat_weights = new StatWeights();
 
   gear_db.Load();
-  gear_view.PopulateItemsFromDB("brd");
+  gear_view.PopulateItemsFromDB($("#geartable"), "brd");
 
   $("#weights-preset ").val("brd");
   OnStatWeightPresetChanged();
@@ -40,4 +40,10 @@ function OnStatWeightPresetChanged() {
   compute.find("input[name=sksp]").val(MaybeEmpty(values.sksp));
   compute.find("input[name=spsp]").val(MaybeEmpty(values.spsp));
   compute.find("input[name=acccap]").val(MaybeEmpty(values.acccap));
+}
+
+function OnItemNameClicked(name) {
+  console.log(name);
+  var e = $("#geartable input[type=checkbox][value=\""+escape(name)+"\"]");
+  e.prop("checked", !e.prop("checked"));
 }

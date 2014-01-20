@@ -7,13 +7,14 @@ body {
     padding-top: 1ex;
 }
 #geartable .name.item {
-    color: blue;
     padding-right: 3em;
+    color: blue;
+    cursor: pointer;
 }
 #geartable .name {
     text-align: left;
 }
-#geartable .stat {
+#geartable .stat,.own {
     padding-left: 1ex;
     text-align: right;
 }
