@@ -14,6 +14,9 @@ GearView.prototype.GenerateItems = function(slot, job) {
   items = gear_db.GetItemsForSlotAndJob(slot, job);
 
   var out = "";
+  if (!items)
+    return out;
+
   out += "<tr>\n";
   out += "<th class='slot name'>" + gear_db.SlotName(slot) + "</th>";
   out += "</tr>\n";
