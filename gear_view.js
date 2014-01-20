@@ -27,7 +27,7 @@ GearView.prototype.GenerateItems = function(slot, job) {
     var item = items[i];
     console.log(item);
     var even_odd = i % 2 == 0 ? "even" : "odd";
-    out += "<td class='item name " + even_odd + "'>" + item.name + "</td>";
+    out += "<td class='item name " + even_odd + "'>" + item.name + " (" + item.ilevel + ")</td>";
     out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.str) + "</td>";
     out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.dex) + "</td>";
     out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.vit) + "</td>";
