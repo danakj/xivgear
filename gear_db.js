@@ -1,6 +1,7 @@
 function GearDB() {
   this.slots_ = {
     "head" : "Head",
+    "body" : "Body",
   };
   this.jobs_ = {
     "brd" : "Bard",
@@ -50,8 +51,26 @@ GearDB.prototype.Reset = function() {
 GearDB.prototype.LoadDefaults = function() {
   console.log("> GearDB.LoadDefaults");
 
+  // Most fields should be straight forward.
+  // sksp: Skill Speed
+  // spsp: Spell Speed
+  // occupies: Slots other than the main slot which the item occupies
+  // default: Always true. Will be false for user-added items.
   db_ = {
     "head" : [
+      {
+	"name" : "Bard's Chapeau",
+	"ilevel" : 90,
+	"def" : 61,
+	"mdef" : 61,
+	"dex" : 18,
+	"vit" : 20,
+	"acc" : 15,
+	"crit" : 21,
+	"job" : [ "brd" ],
+	"occupies" : [],
+	"default" : true,
+      },
       {
 	"name" : "Allagan Visor Of Aiming",
 	"ilevel" : 90,
@@ -62,6 +81,7 @@ GearDB.prototype.LoadDefaults = function() {
 	"crit" : 15,
 	"acc" : 21,
 	"job" : [ "brd" ],
+	"occupies" : [],
 	"default" : true,
       },
       {
@@ -74,6 +94,7 @@ GearDB.prototype.LoadDefaults = function() {
 	"sksp" : 13,
 	"det" : 13,
 	"job" : [ "brd" ],
+	"occupies" : [],
 	"default" : true,
       },
       {
@@ -85,6 +106,60 @@ GearDB.prototype.LoadDefaults = function() {
 	"vit" : 14,
 	"acc" : 11,
 	"crit" : 16,
+	"job" : [ "brd" ],
+	"occupies" : [],
+	"default" : true,
+      },
+    ],
+    "body" : [
+      {
+	"name" : "Bard's Shirt",
+	"ilevel" : 90,
+	"def" : 86,
+	"mdef" : 86,
+	"dex" : 29,
+	"vit" : 33,
+	"acc" : 24,
+	"crit" : 34,
+	"job" : [ "brd" ],
+	"occupies" : [],
+	"default" : true,
+      },
+      {
+	"name" : "Allagan Cuirass Of Aiming",
+	"ilevel" : 90,
+	"def" : 86,
+	"mdef" : 86,
+	"dex" : 29,
+	"vit" : 33,
+	"crit" : 24,
+	"sksd" : 34,
+	"job" : [ "brd" ],
+	"occupies" : [],
+	"default" : true,
+      },
+      {
+	"name" : "Ballad Corselet",
+	"ilevel" : 80,
+	"def" : 84,
+	"mdef" : 84,
+	"dex" : 25,
+	"vit" : 27,
+	"acc" : 30,
+	"det" : 15,
+	"job" : [ "brd" ],
+	"occupies" : [],
+	"default" : true,
+      },
+      {
+	"name" : "Darklight Corselet Of Aiming",
+	"ilevel" : 70,
+	"def" : 81,
+	"mdef" : 81,
+	"dex" : 20,
+	"vit" : 22,
+	"acc" : 27,
+	"crit" : 19,
 	"job" : [ "brd" ],
 	"default" : true,
       },
