@@ -1,13 +1,27 @@
 function GearDB() {
-  this.slots_ = [
-    "head",
-  ];
+  this.slots_ = {
+    "head" : "Head",
+  };
+  this.jobs_ = {
+    "brd" : "Bard",
+  };
   this.db_ = null;
 }
 
-GearDB.prototype.GetItemsForSlot = function(slot, job) {
+GearDB.prototype.AllSlots = function() {
+  var out = [];
+  for (var i in this.slots_)
+    out.push(i);
+  return out;
+}
+
+GearDB.prototype.SlotName = function(slot) {
+  return this.slots_[slot];
+}
+
+GearDB.prototype.GetItemsForSlotAndJob = function(slot, job) {
   console.log("> GearDB.GetItemsForSlot " + slot);
-  if (this.slots_.indexOf(slot) == -1)
+  if (!this.slots_[slot])
     console.log("GearDB.GetItemsForSlot has invalid slot: " + slot);
   var items_for_job = db_[slot].filter(function(i) { return i.job.indexOf(job) >= 0; });
   return items_for_job.sort(function(a,b) { return b.ilevel - a.ilevel; });

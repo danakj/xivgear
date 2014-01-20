@@ -11,15 +11,11 @@ GearView.prototype.MaybeEmpty = function(m) {
 }
 
 GearView.prototype.DisplayItems = function(element, slot, job) {
-  items = gear_db.GetItemsForSlot(slot, job);
+  items = gear_db.GetItemsForSlotAndJob(slot, job);
   out = "<table cellspacing='0'>\n";
 
-  slot_name = {
-    "head" : "Head",
-  }[slot];
-
   out += "<tr>\n";
-  out += "<th class='slot name'>" + slot_name + "</th>";
+  out += "<th class='slot name'>" + gear_db.SlotName(slot) + "</th>";
   out += "<th class='primary stat'>STR</th>";
   out += "<th class='primary stat'>DEX</th>";
   out += "<th class='primary stat'>VIT</th>";
@@ -65,7 +61,9 @@ GearView.prototype.PopulateItemsFromDB = function(job) {
     gear_db.Save();
   }
 
-  this.DisplayItems(ElementFromId("gear_head"), "head", job);
+  var slots = gear_db.AllSlots();
+  for (var i in slots)
+    this.DisplayItems(ElementFromId("gear_" + slots[i]), slots[i], job);
 }
 
 GearView.prototype.ResetGearDB = function() {
