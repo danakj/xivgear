@@ -3,6 +3,9 @@ body {
     font-size: 12pt;
 }
 
+#geartable .name.slot {
+    padding-top: 1ex;
+}
 #geartable .name.item {
     color: blue;
     padding-right: 3em;

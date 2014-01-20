@@ -10,24 +10,13 @@ GearView.prototype.MaybeEmpty = function(m) {
   return m ? m : "";
 }
 
-GearView.prototype.DisplayItems = function(element, slot, job) {
+GearView.prototype.GenerateItems = function(slot, job) {
   items = gear_db.GetItemsForSlotAndJob(slot, job);
-  out = "<table cellspacing='0'>\n";
 
+  var out = "";
   out += "<tr>\n";
   out += "<th class='slot name'>" + gear_db.SlotName(slot) + "</th>";
-  out += "<th class='primary stat'>STR</th>";
-  out += "<th class='primary stat'>DEX</th>";
-  out += "<th class='primary stat'>VIT</th>";
-  out += "<th class='primary stat'>INT</th>";
-  out += "<th class='primary stat'>MND</th>";
-  out += "<th class='primary stat'>PIE</th>";
-  out += "<th class='secondary stat'>ACC</th>";
-  out += "<th class='secondary stat'>CRIT</th>";
-  out += "<th class='secondary stat'>DET</th>";
-  out += "<th class='secondary stat'>SPSD</th>";
-  out += "<th class='secondary stat'>SKSD</th>";
-  out += "</tr>";
+  out += "</tr>\n";
 
   for (var i in items) {
     out += "<tr>\n";
@@ -50,7 +39,7 @@ GearView.prototype.DisplayItems = function(element, slot, job) {
 
     out += "</tr>\n";
   }
-  element.innerHTML = out;
+  return out;
 }
 
 GearView.prototype.PopulateItemsFromDB = function(job) {
@@ -63,13 +52,27 @@ GearView.prototype.PopulateItemsFromDB = function(job) {
 
   var etable = ElementFromId("geartable");
 
+  var out = "<table cellspacing='0'>\n";
+
+  out += "<tr>\n";
+  out += "<th></th>";
+  out += "<th class='primary stat'>STR</th>";
+  out += "<th class='primary stat'>DEX</th>";
+  out += "<th class='primary stat'>VIT</th>";
+  out += "<th class='primary stat'>INT</th>";
+  out += "<th class='primary stat'>MND</th>";
+  out += "<th class='primary stat'>PIE</th>";
+  out += "<th class='secondary stat'>ACC</th>";
+  out += "<th class='secondary stat'>CRIT</th>";
+  out += "<th class='secondary stat'>DET</th>";
+  out += "<th class='secondary stat'>SPSD</th>";
+  out += "<th class='secondary stat'>SKSD</th>";
+  out += "</tr>";
+
   var slots = gear_db.AllSlots();
-  for (var i in slots) {
-    var e = document.createElement('div');
-    e.className = "gear_" + slots[i];
-    etable.appendChild(e);
-    this.DisplayItems(e, slots[i], job);
-  }
+  for (var i in slots)
+    out += this.GenerateItems(slots[i], job);
+  etable.innerHTML = out;
 }
 
 GearView.prototype.ResetGearDB = function() {
