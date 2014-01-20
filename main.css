@@ -3,17 +3,17 @@ body {
     font-size: 12pt;
 }
 
-.geartable .name.item {
+#geartable .name.item {
     color: blue;
     padding-right: 3em;
 }
-.geartable .name {
+#geartable .name {
     text-align: left;
 }
-.geartable .stat {
+#geartable .stat {
     padding-left: 1ex;
     text-align: right;
 }
-.geartable .odd {
+#geartable .odd {
     background-color: #f5f5f5;
 }

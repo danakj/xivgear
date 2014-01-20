@@ -61,9 +61,15 @@ GearView.prototype.PopulateItemsFromDB = function(job) {
     gear_db.Save();
   }
 
+  var etable = ElementFromId("geartable");
+
   var slots = gear_db.AllSlots();
-  for (var i in slots)
-    this.DisplayItems(ElementFromId("gear_" + slots[i]), slots[i], job);
+  for (var i in slots) {
+    var e = document.createElement('div');
+    e.className = "gear_" + slots[i];
+    etable.appendChild(e);
+    this.DisplayItems(e, slots[i], job);
+  }
 }
 
 GearView.prototype.ResetGearDB = function() {
