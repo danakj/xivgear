@@ -25,7 +25,11 @@ GearDB.prototype.GetItemsForSlotAndJob = function(slot, job) {
   if (!this.slots_[slot])
     console.log("GearDB.GetItemsForSlot has invalid slot: " + slot);
   var items_for_job = db_[slot].filter(function(i) { return i.job.indexOf(job) >= 0; });
-  return items_for_job.sort(function(a,b) { return b.ilevel - a.ilevel; });
+  return items_for_job.sort(function(a,b) {
+    if (b.ilevel == a.ilevel)
+      return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0;
+    return b.ilevel - a.ilevel;
+  });
 }
 
 GearDB.prototype.ToString = function() {
