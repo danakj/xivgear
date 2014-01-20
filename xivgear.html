@@ -7,9 +7,35 @@
     <script src="gear_db.js"></script>
     <script src="gear_view.js"></script>
     <script src="helpers.js"></script>
+    <script src="stat_weights.js"></script>
   </head>
 <body>
   <div id="geartable"></div>
+  <div id="compute">
+    <table class="weights">
+      <tr><th colspan="2">Stat Weights</th></tr>
+      <tr><td>Presets</td><td>
+	  <select id="weights-preset" class="preset" onchange="OnStatWeightPresetChanged()">
+	    <option value="">--</option>
+	    <option value="brd">Bard</option>
+	  </select>
+	</td>
+      </tr>
+      <tr><td>Weapon Damage</td><td><input class="stat" name="dmg" /></td></tr>
+      <tr><td>STR</td><td><input class="stat" name="str" /></td></tr>
+      <tr><td>DEX</td><td><input class="stat" name="dex" /></td></tr>
+      <tr><td>INT</td><td><input class="stat" name="int" /></td></tr>
+      <tr><td>MND</td><td><input class="stat" name="mnd" /></td></tr>
+      <tr><td>PIE</td><td><input class="stat" name="pie" /></td></tr> 
+      <tr><td>VIT</td><td><input class="stat" name="vit" /></td></tr>
+      <tr><td>Accuracy</td><td><input class="stat" name="acc" /></td></tr>
+      <tr><td>Critical Hit</td><td><input class="stat" name="crit" /></td></tr>
+      <tr><td>Determination</td><td><input class="stat" name="det" /></td></tr>
+      <tr><td>Spell Speed</td><td><input class="stat" name="spsp" /></td></tr>
+      <tr><td>Skill Speed</td><td><input class="stat" name="sksp" /></td></tr>
+      <tr><td>Accuracy Cap</td><td><input class="stat" name="acccap" /></td></tr>
+   </table>
+  </div>
 
 </body>
 <script src="xivgear.js"></script>

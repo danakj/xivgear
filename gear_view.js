@@ -2,14 +2,6 @@ function GearView(gear_db) {
   this.gear_db = gear_db;
 }
 
-GearView.prototype.MaybeZero = function(m) {
-  return m ? m : 0;
-}
-
-GearView.prototype.MaybeEmpty = function(m) {
-  return m ? m : "";
-}
-
 GearView.prototype.GenerateItems = function(slot, job) {
   items = gear_db.GetItemsForSlotAndJob(slot, job);
 
@@ -28,17 +20,17 @@ GearView.prototype.GenerateItems = function(slot, job) {
     console.log(item);
     var even_odd = i % 2 == 0 ? "even" : "odd";
     out += "<td class='item name " + even_odd + "'>" + item.name + " (" + item.ilevel + ")</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.str) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.dex) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.vit) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.int) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.mnd) + "</td>";
-    out += "<td class='primary stat " + even_odd + "'>" + this.MaybeEmpty(item.pie) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + this.MaybeEmpty(item.acc) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + this.MaybeEmpty(item.crit) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + this.MaybeEmpty(item.det) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + this.MaybeEmpty(item.spsp) + "</td>";
-    out += "<td class='secondary stat " + even_odd + "'>" + this.MaybeEmpty(item.sksp) + "</td>";
+    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.str) + "</td>";
+    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.dex) + "</td>";
+    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.vit) + "</td>";
+    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.int) + "</td>";
+    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.mnd) + "</td>";
+    out += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.pie) + "</td>";
+    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.acc) + "</td>";
+    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.crit) + "</td>";
+    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.det) + "</td>";
+    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.spsp) + "</td>";
+    out += "<td class='secondary stat " + even_odd + "'>" + MaybeEmpty(item.sksp) + "</td>";
 
     out += "</tr>\n";
   }
