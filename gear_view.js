@@ -19,7 +19,10 @@ GearView.prototype.GenerateItems = function(elem, slot, job) {
 
     var item = items[i];
     var even_odd = i % 2 == 0 ? "even" : "odd";
-    row += "<td class='own'><input type='checkbox' value=\"" + encodeURIComponent(item.name) + "\"/></td>\n"
+    row += "<td class='own'>" +
+      "<input class='want' type='checkbox' value=\"" + encodeURIComponent(item.name) + "\"/>" +
+      "<input class='own' type='checkbox' value=\"" + encodeURIComponent(item.name) + "\"/>" +
+      "</td>\n"
     row += "<td class='item name " + even_odd + "'>" + item.name + "</td>";
     row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.dmg) + "</td>";
     row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.str) + "</td>";
@@ -43,7 +46,7 @@ GearView.prototype.GenerateItems = function(elem, slot, job) {
       item_elem.addEventListener('click', curry(OnItemNameClicked, item_elem, item.name));
     }
     {
-      var es = elem.find("td input[type=checkbox]");
+      var es = elem.find("td input.own[type=checkbox]");
       var item_elem = es[es.length - 1];
       item_elem.addEventListener('change', curry(OnItemOwnershipChanged, item_elem, item.name));
     }
@@ -62,7 +65,7 @@ GearView.prototype.PopulateItemsFromDB = function(etable, job) {
 
   var header = "";
   header += "<tr>\n";
-  header += "<th class='own'>Own</th>";
+  header += "<th class='own'>Avail / Own</th>";
   header += "<th></th>";
   header += "<th class='primary stat'>DMG</th>";
   header += "<th class='primary stat'>STR</th>"; 
@@ -90,7 +93,7 @@ GearView.prototype.ResetGearDB = function() {
 }
 
 GearView.prototype.SetOwnership = function(owned) {
-  var checkboxes = $("#geartable input[type=checkbox]");
+  var checkboxes = $("#geartable input.own[type=checkbox]");
   for (var i = 0; i < checkboxes.length; ++i) {
     var own = owned.indexOf(checkboxes[i].defaultValue) >= 0;
     checkboxes[i].checked = own;
