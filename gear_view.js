@@ -19,7 +19,7 @@ GearView.prototype.GenerateItems = function(elem, slot, job) {
 
     var item = items[i];
     var even_odd = i % 2 == 0 ? "even" : "odd";
-    row += "<td class='own'><input type='checkbox' value='" + encodeURIComponent(item.name) + "'/></td>\n"
+    row += "<td class='own'><input type='checkbox' value=\"" + encodeURIComponent(item.name) + "\"/></td>\n"
     row += "<td class='item name " + even_odd + "'>" + item.name + "</td>";
     row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.dmg) + "</td>";
     row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.str) + "</td>";
@@ -37,9 +37,16 @@ GearView.prototype.GenerateItems = function(elem, slot, job) {
     row += "</tr>\n";
     elem.append(row);
 
-    var es = elem.find("td.item.name");
-    var item_elem = es[es.length - 1];
-    item_elem.addEventListener('click', curry(OnItemNameClicked, item_elem, item.name));
+    {
+      var es = elem.find("td.item.name");
+      var item_elem = es[es.length - 1];
+      item_elem.addEventListener('click', curry(OnItemNameClicked, item_elem, item.name));
+    }
+    {
+      var es = elem.find("td input[type=checkbox]");
+      var item_elem = es[es.length - 1];
+      item_elem.addEventListener('change', curry(OnItemOwnershipChanged, item_elem, item.name));
+    }
   }
 }
 

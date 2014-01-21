@@ -45,9 +45,18 @@ function OnStatWeightPresetChanged() {
 }
 
 function OnItemNameClicked(name) {
-  var e = $("#geartable input[type=checkbox][value=\""+escape(name)+"\"]");
+  console.log("OnItemNameClicked", encodeURIComponent(name));
+  var e = $("#geartable input[type=checkbox][value=\""+encodeURIComponent(name)+"\"]");
+  console.log(e);
   var own = !e.prop("checked");
   e.prop("checked", own);
+  OnItemOwnershipChanged(name);
+}
+
+function OnItemOwnershipChanged(name) {
+  console.log("OnItemOwnershipChanged", encodeURIComponent(name));
+  var e = $("#geartable input[type=checkbox][value=\""+encodeURIComponent(name)+"\"]");
+  var own = e.prop("checked");
   if (own)
     g_gear_ownership.Add(name);
   else
