@@ -62,7 +62,7 @@ GearView.prototype.PopulateItemsFromDB = function(etable, job) {
 
   var header = "";
   header += "<tr>\n";
-  header += "<th>Own</th>";
+  header += "<th class='own'>Own</th>";
   header += "<th></th>";
   header += "<th class='primary stat'>DMG</th>";
   header += "<th class='primary stat'>STR</th>"; 
