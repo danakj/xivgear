@@ -20,7 +20,6 @@ GearView.prototype.GenerateItems = function(elem, slot, job) {
     var item = items[i];
     var even_odd = i % 2 == 0 ? "even" : "odd";
     row += "<td class='own'>" +
-      "<input class='want' type='checkbox' value=\"" + encodeURIComponent(item.name) + "\"/>" +
       "<input class='own' type='checkbox' value=\"" + encodeURIComponent(item.name) + "\"/>" +
       "</td>\n"
     row += "<td class='item name " + even_odd + "'>" + item.name + "</td>";
@@ -65,7 +64,7 @@ GearView.prototype.PopulateItemsFromDB = function(etable, job) {
 
   var header = "";
   header += "<tr>\n";
-  header += "<th class='own'>Avail / Own</th>";
+  header += "<th class='own'>Own</th>";
   header += "<th></th>";
   header += "<th class='primary stat'>DMG</th>";
   header += "<th class='primary stat'>STR</th>"; 

@@ -23,9 +23,6 @@ body {
 #geartable .odd {
     background-color: #f5f5f5;
 }
-#geartable th.own {
-    width: 3em;
-}
 
 #compute {
     position: fixed;
