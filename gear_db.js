@@ -16,6 +16,7 @@ function GearDB() {
     "brd" : "Bard",
   };
   this.db_ = null;
+  this.Load();
 }
 
 GearDB.prototype.AllSlots = function() {
@@ -32,9 +33,9 @@ GearDB.prototype.SlotName = function(slot) {
 GearDB.prototype.GetItemsForSlotAndJob = function(slot, job) {
   if (!this.slots_[slot])
     console.log("GearDB.GetItemsForSlot has invalid slot: " + slot);
-  if (!db_[slot])
+  if (!this.db_[slot])
     return null;
-  var items_for_job = db_[slot].filter(function(i) { return i.job.indexOf(job) >= 0; });
+  var items_for_job = this.db_[slot].filter(function(i) { return i.job.indexOf(job) >= 0; });
   return items_for_job.sort(function(a,b) {
     if (b.ilevel == a.ilevel)
       return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0;
@@ -43,7 +44,7 @@ GearDB.prototype.GetItemsForSlotAndJob = function(slot, job) {
 }
 
 GearDB.prototype.ToString = function() {
-  return JSON.stringify(db_)
+  return JSON.stringify(this.db_)
 }
 
 GearDB.prototype.Save = function() {
@@ -70,7 +71,7 @@ GearDB.prototype.LoadDefaults = function() {
   // spsp: Spell Speed
   // occupies: Slots other than the main slot which the item occupies
   // default: Always true. Will be false for user-added items.
-  db_ = {
+  this.db_ = {
     "head" : [
       {
 	"name" : "Bard's Chapeau",

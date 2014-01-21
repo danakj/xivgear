@@ -1,14 +1,16 @@
-var gear_db;
-var gear_view;
-var stat_weights;
+var g_gear_db;
+var g_gear_ownership;
+var g_gear_view;
+var g_stat_weights;
 
 function OnPageLoad() {
-  gear_db = new GearDB();
-  gear_view = new GearView(gear_db);
-  stat_weights = new StatWeights();
+  g_gear_db = new GearDB();
+  g_gear_ownership = new GearOwnership();
+  g_gear_view = new GearView(g_gear_db);
+  g_stat_weights = new StatWeights();
 
-  gear_db.Load();
-  gear_view.PopulateItemsFromDB($("#geartable"), "brd");
+  g_gear_view.PopulateItemsFromDB($("#geartable"), "brd");
+  g_gear_view.SetOwnership(g_gear_ownership.All());
 
   $("#weights-preset ").val("brd");
   OnStatWeightPresetChanged();
@@ -21,7 +23,7 @@ function OnStatWeightPresetChanged() {
     console.log("OnStatWeightPresetChanged has invalid preset: " + preset);
     return;
   }
-  var values = stat_weights.LoadPreset(preset);
+  var values = g_stat_weights.LoadPreset(preset);
   if (!values) {
     console.log("OnStatWeightPresetChanged has invalid preset: " + preset);
     return;
@@ -43,7 +45,12 @@ function OnStatWeightPresetChanged() {
 }
 
 function OnItemNameClicked(name) {
-  console.log(name);
   var e = $("#geartable input[type=checkbox][value=\""+escape(name)+"\"]");
-  e.prop("checked", !e.prop("checked"));
+  var own = !e.prop("checked");
+  e.prop("checked", own);
+  if (own)
+    g_gear_ownership.Add(name);
+  else
+    g_gear_ownership.Remove(name);
+  g_gear_ownership.Save();
 }

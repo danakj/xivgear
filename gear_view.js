@@ -1,16 +1,16 @@
 function GearView(gear_db) {
-  this.gear_db = gear_db;
+  this.gear_db_ = gear_db;
 }
 
 GearView.prototype.GenerateItems = function(elem, slot, job) {
-  items = gear_db.GetItemsForSlotAndJob(slot, job);
+  items = this.gear_db_.GetItemsForSlotAndJob(slot, job);
   if (!items)
     return;
 
   var category = "";
   category += "<tr>\n";
   category += "<th/>\n"
-  category += "<th class='slot name'>" + gear_db.SlotName(slot) + "</th>";
+  category += "<th class='slot name'>" + this.gear_db_.SlotName(slot) + "</th>";
   category += "</tr>\n";
   elem.append(category);
 
@@ -19,7 +19,7 @@ GearView.prototype.GenerateItems = function(elem, slot, job) {
 
     var item = items[i];
     var even_odd = i % 2 == 0 ? "even" : "odd";
-    row += "<td class='own'><input type='checkbox' value='" + escape(item.name) + "'/></td>\n"
+    row += "<td class='own'><input type='checkbox' value='" + encodeURIComponent(item.name) + "'/></td>\n"
     row += "<td class='item name " + even_odd + "'>" + item.name + "</td>";
     row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.dmg) + "</td>";
     row += "<td class='primary stat " + even_odd + "'>" + MaybeEmpty(item.str) + "</td>";
@@ -45,10 +45,10 @@ GearView.prototype.GenerateItems = function(elem, slot, job) {
 
 GearView.prototype.PopulateItemsFromDB = function(etable, job) {
   console.log("> GearView.PopulateItemsFromDB");
-  if (!gear_db) {
+  if (!this.gear_db_) {
     console.log("Empty database, resetting.");
-    gear_db.ResetToDefaults();
-    gear_db.Save();
+    this.gear_db_.ResetToDefaults();
+    this.gear_db_.Save();
   }
 
   etable.html("<table cellspacing='0'>\n");
@@ -72,12 +72,20 @@ GearView.prototype.PopulateItemsFromDB = function(etable, job) {
   header += "</tr>";
   etable.append(header);
 
-  var slots = gear_db.AllSlots();
+  var slots = this.gear_db_.AllSlots();
   for (var i in slots)
     this.GenerateItems(etable, slots[i], job);
 }
 
 GearView.prototype.ResetGearDB = function() {
-  gear_db.Reset();
+  this.gear_db_.Reset();
   PopulateGearDB();
+}
+
+GearView.prototype.SetOwnership = function(owned) {
+  var checkboxes = $("#geartable input[type=checkbox]");
+  for (var i = 0; i < checkboxes.length; ++i) {
+    var own = owned.indexOf(checkboxes[i].defaultValue) >= 0;
+    checkboxes[i].checked = own;
+  }
 }
