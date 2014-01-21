@@ -7,7 +7,6 @@ GearOwnership.prototype.Add = function(name) {
   name = encodeURIComponent(name);
   if (this.own_.indexOf(name) < 0)
     this.own_.push(name);
-  console.log(this.own_);
 }
 
 GearOwnership.prototype.Remove = function(name) {
@@ -15,7 +14,6 @@ GearOwnership.prototype.Remove = function(name) {
   var i = this.own_.indexOf(name);
   if (i >= 0)
     this.own_.splice(i, 1);
-  console.log(this.own_);
 }
 
 GearOwnership.prototype.Save = function() {
@@ -27,7 +25,6 @@ GearOwnership.prototype.Load = function() {
   this.own_ = JSON.parse(v);
   if (!this.own_)
     this.own_ = [];
-  console.log("Loaded", this.own_);
 }
 
 GearOwnership.prototype.All = function() {
